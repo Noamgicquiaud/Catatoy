@@ -35,14 +35,37 @@ app.get('/', function (req, res) {
 
 //affiche tous les jouets
 app.get('/jouets',
-    (req,res) =>  {
+    (req,res) => {
         let responseText = 'Voici la liste des jouets </br>';
         lesJouets.forEach(
-            (unJouet) => {responseText += `Jouet : ${unJouet.libelle}  </br>`;}
+            (unJouet) => {
+                responseText += `Jouet : ${unJouet.libelle}  </br>`;
+            }
         );
+
+        responseText += '<hr>';
+        responseText += 'Ajout d\'un nouveau jouet </br>';
+        responseText += '<form action="/jouets" method="post">';
+        responseText += 'Libelle :<br>';
+        responseText += '<input type="text" name="libelle" value=""><br>';
+        responseText += 'Categorie :<br>';
+        responseText += '<select>';
+        responseText += `<option value="cat1"> ${categorie1.libelle}</option>`;
+        responseText += `<option value="cat2"> ${categorie2.libelle}</option>`;
+        responseText += `<option value="cat3"> ${categorie3.libelle}</option>`;
+        responseText += '</select><br>';
+        responseText += 'Tranche d\'âge :<br>';
+        responseText += '<select>';
+        responseText += `<option value="t02"> ${tranche02.toString()}</option>`;
+        responseText += `<option value="t25"> ${tranche25.toString()}</option>`;
+        responseText += `<option value="t48"> ${tranche48.toString()}</option>`;
+        responseText += '</select><br>';
+        responseText += '<input type="submit" value="Envoyer">';
+        responseText += '</form>';
+
+
         res.send(responseText);
-    }
-);
+    });
 
 //Affiche le jouet d'id :id
 app.get('/jouets/:id',
